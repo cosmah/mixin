@@ -1,0 +1,73 @@
+.App {
+    text-align: center;
+  }
+  
+  .App-logo {
+    height: 40vmin;
+    pointer-events: none;
+  }
+  
+  @media (prefers-reduced-motion: no-preference) {
+    .App-logo {
+      animation: App-logo-spin infinite 20s linear;
+    }
+  }
+  
+  .App-header {
+    background-color: #282c34;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: calc(10px + 2vmin);
+    color: white;
+  }
+  
+  .App-link {
+    color: #61dafb;
+  }
+  
+  @keyframes App-logo-spin {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+  
+  
+  /* progress bar */
+  .progress {
+    width: 100%;
+    background-color: #f3f3f3;
+    border-radius: 4px;
+  }
+  
+  .progress-bar {
+    height: 20px;
+    background-color: #4CAF50;
+    border-radius: 4px;
+    color: white;
+    text-align: center;
+    line-height: 20px;
+  }
+  
+  /* dialog */
+  /* App.css */
+  .custom-modal {
+    max-width: 200px; /* Default size for large screens */
+    width: 80%; /* Default size for medium screens */
+    height: 80%;
+    margin: auto;
+   }
+   
+   /* Adjustments for mobile devices */
+   @media (max-width: 768px) {
+    .custom-modal {
+       width: 100%;
+       height: 100%;
+    }
+   }
+   

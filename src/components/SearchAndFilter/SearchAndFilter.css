@@ -1,0 +1,14 @@
+/* SearchAndFilter.css */
+
+.searchAndFilter {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 20px;
+   }
+   
+   .searchAndFilter input,
+   .searchAndFilter select {
+    padding: 5px;
+    font-size: 16px;
+   }

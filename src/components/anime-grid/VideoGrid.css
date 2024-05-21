@@ -1,0 +1,68 @@
+/* VideoGrid.css */
+
+.videoGrid {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  padding: 20px;
+  box-sizing: border-box;
+ }
+ 
+ .header {
+  width: 100%;
+  text-align: center;
+  margin-bottom: 20px;
+ }
+ 
+ .videos {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  grid-auto-rows: 200px; /* Set a specific height for the grid rows */
+  grid-gap: 20px;
+  width: 100%;
+  max-width: 1200px; /* Adjust this value based on your design */
+  margin: 0 auto;
+ }
+ 
+ .videoThumbnail {
+  width: 100%;
+  height: 200px; /* Fixed height for the video thumbnails */
+  object-fit: cover; /* Ensures the video fills the available space without distortion */
+ }
+ 
+ /* Responsive grid adjustments */
+ @media (max-width: 768px) {
+  .videos {
+     grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+     grid-auto-rows: 150px; /* Adjust the row height for smaller screens */
+  }
+ }
+ 
+ @media (max-width: 480px) {
+  .videos {
+     grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+     grid-auto-rows: 100px; /* Adjust the row height for smaller screens */
+  }
+ }
+ 
+ .videoCard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+ }
+ 
+ .videoInfo {
+  text-align: center;
+ }
+ 
+ .videoName {
+  margin: 10px 0;
+  font-size: 18px;
+  font-weight: bold;
+ }
+ 
+ .videoCategory {
+  font-size: 14px;
+  color: #666;
+ }
