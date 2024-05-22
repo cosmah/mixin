@@ -5,6 +5,8 @@ import { useParams } from "react-router-dom";
 import { db } from "../../firebase/firebase";
 import { doc, getDoc } from "firebase/firestore";
 import "./VideoPlayer.css";
+import Vertical from './videos/vertical/Vertical';
+import Horizontal from "./videos/horizontal/Horizontal";
 
 const VideoPlayer = () => {
   const [videoUrl, setVideoUrl] = useState("");
@@ -30,9 +32,13 @@ const VideoPlayer = () => {
   }, [id]);
 
   return (
-    <div>
-      <h1>Video Player</h1>
-      {videoUrl && <ReactPlayer url={videoUrl} controls />}
+    <div className="grid-container">
+      <div className="video-player">
+        <h1>Video Player</h1>
+        {videoUrl && <ReactPlayer url={videoUrl} controls />}
+      </div>
+      <Vertical />
+      <Horizontal />
     </div>
   );
 };

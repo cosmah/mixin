@@ -24,3 +24,22 @@
     border-radius: 10px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
    }
+
+   .grid-container {
+    display: grid;
+    grid-template-areas: 
+      "video vertical"
+      "horizontal horizontal";
+  }
+  
+  .video-player {
+    grid-area: video;
+  }
+  
+  .Vertical {
+    grid-area: vertical;
+  }
+  
+  .Horizontal {
+    grid-area: horizontal;
+  }
