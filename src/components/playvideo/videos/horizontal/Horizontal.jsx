@@ -3,7 +3,7 @@ import React from 'react';
 function Horizontal() {
   return (
     <div>
-      Horizontal
+        <h1>Similar Videos</h1>
     </div>
   );
 }

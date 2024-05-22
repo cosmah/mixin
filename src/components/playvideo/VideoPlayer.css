@@ -30,10 +30,23 @@
     grid-template-areas: 
       "video vertical"
       "horizontal horizontal";
+    grid-template-columns: 70vw 30vw; /* Adjust the width of the columns */
   }
   
   .video-player {
     grid-area: video;
+    width: 100%; /* Full width */
+    height: 0; /* Collapse the div */
+    padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
+    position: relative; /* Establish a new block formatting context */
+  }
+  
+  .video-player .react-player {
+    position: absolute; /* Position the video player */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
   }
   
   .Vertical {
@@ -43,3 +56,20 @@
   .Horizontal {
     grid-area: horizontal;
   }
+
+  
+
+
+/* Responsive layout for small screens */
+@media (max-width: 600px) {
+    .grid-container {
+       grid-template-areas: 
+         "video"
+         "vertical"; /* Only include 'video' and 'vertical', exclude 'horizontal' */
+       grid-template-columns: 100%; /* Full width */
+     }
+   
+    .Horizontal {
+       display: none; /* Hide the horizontal component */
+     }
+ }
