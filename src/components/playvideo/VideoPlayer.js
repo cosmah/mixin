@@ -38,7 +38,7 @@ const VideoPlayer = () => {
       <div className="video-player">
         <h1>Video Player</h1>
         {videoUrl && <ReactPlayer url={videoUrl} controls />}
-        <Likes />
+        <Likes videoId={id}/>
         <Comments />
       </div>
       <Vertical />
