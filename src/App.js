@@ -2,13 +2,13 @@ import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import Login from "./components/auth/Login";
 import Register from "./components/auth/Register";
-import Header from "./components/header";
 import Home from "./components/home";
 import VideoGrid from './components/anime-grid/VideoGrid';
 import UploadPage from './components/uploading/UploadPage'
 import VideoPlayer from './components/playvideo/VideoPlayer';
 import Admin from './components/admin/AdminPanel';
 import { AuthProvider } from "./contexts/authContext";
+import LogoutButton from './components/auth/Logout';
 
 function App() {
  return (
@@ -37,6 +37,7 @@ function App() {
             <Route path="/register" element={<Register />} />
             <Route path="*" element={<VideoGrid />} />
             <Route path="/admin" element={<Admin />} />
+            <Route path="/logout" element={<LogoutButton />} />
           </Routes>
         </div>
       </Router>
