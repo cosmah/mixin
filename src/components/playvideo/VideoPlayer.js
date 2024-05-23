@@ -6,7 +6,6 @@ import { db } from "../../firebase/firebase";
 import { doc, getDoc } from "firebase/firestore";
 import "./VideoPlayer.css";
 import Vertical from './videos/vertical/Vertical';
-import Horizontal from "./videos/horizontal/Horizontal";
 import Comments from "../reactions/comments/Comments";
 import Likes from "../reactions/likes/Likes";
 
@@ -42,7 +41,6 @@ const VideoPlayer = () => {
         <Comments />
       </div>
       <Vertical />
-      <Horizontal />
     </div>
   );
 };
