@@ -7,6 +7,8 @@ import { doc, getDoc } from "firebase/firestore";
 import "./VideoPlayer.css";
 import Vertical from './videos/vertical/Vertical';
 import Horizontal from "./videos/horizontal/Horizontal";
+import Comments from "../reactions/comments/Comments";
+import Likes from "../reactions/likes/Likes";
 
 const VideoPlayer = () => {
   const [videoUrl, setVideoUrl] = useState("");
@@ -36,6 +38,8 @@ const VideoPlayer = () => {
       <div className="video-player">
         <h1>Video Player</h1>
         {videoUrl && <ReactPlayer url={videoUrl} controls />}
+        <Likes />
+        <Comments />
       </div>
       <Vertical />
       <Horizontal />

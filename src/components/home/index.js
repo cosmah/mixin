@@ -12,6 +12,9 @@ const Home = () => {
         {currentUser.displayName ? currentUser.displayName : currentUser.email},
         you are now logged in.
       </div>
+      <div>
+        
+      </div>
     </div>
   );
 };
