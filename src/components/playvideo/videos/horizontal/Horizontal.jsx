@@ -1,9 +1,44 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { db } from '../../../../firebase/firebase';
+import { collection, getDocs } from 'firebase/firestore'; // Import the necessary Firestore functions
+import { Link } from 'react-router-dom';
 
 function Horizontal() {
+  const [videos, setVideos] = useState([]);
+
+  useEffect(() => {
+    const fetchVideos = async () => {
+      const videoCollectionRef = collection(db, 'videos'); // Use the collection function
+      const snapshot = await getDocs(videoCollectionRef); // Use the getDocs function
+
+      const videoList = [];
+      snapshot.forEach((doc) => {
+        const videoData = doc.data();
+        videoList.push({...videoData, id: doc.id });
+      });
+
+      console.log('Fetched videos:', videoList); // Debug line
+      setVideos(videoList);
+    };
+
+    fetchVideos();
+  }, []);
+
+  console.log('Rendering videos:', videos); // Debug line
+
   return (
-    <div>
-        <h1>Similar Videos</h1>
+    <div style={{ display: 'flex', flexDirection: 'row', overflowX: 'auto' }}>
+      {videos.map((video, index) => (
+        <div key={index} className="videoCard">
+          <Link to={`/player/${video.id}`}>
+            <video src={video.url} controls className="videoThumbnail" />
+          </Link>
+          <div className="videoInfo">
+            <h3 className="videoName">{video.name}</h3>
+            <p className="videoCategory">{video.category}</p>
+          </div>
+        </div>
+      ))}
     </div>
   );
 }
