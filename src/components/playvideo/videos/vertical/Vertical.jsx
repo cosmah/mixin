@@ -1,51 +1,44 @@
 import React, { useEffect, useState } from 'react';
-
-import { db } from '../../../firebase/firebase';
-import { collection, getDocs } from 'firebase/firestore';
-
+import { db } from '../../../../firebase/firebase';
+import { collection, getDocs } from 'firebase/firestore'; // Import the necessary Firestore functions
+import { Link } from 'react-router-dom';
 
 function Vertical() {
   const [videos, setVideos] = useState([]);
-const [categories, setCategories] = useState([]);
- const [searchQuery, setSearchQuery] = useState(''); // State for search query
- const [filterOption, setFilterOption] = useState(''); // State for filter option
 
- const fetchVideoUrlsFromFirestore = async () => {
-    const videoUrls = [];
-    try {
-      const querySnapshot = await getDocs(collection(db, 'videos'));
-      querySnapshot.forEach((doc) => {
-        videoUrls.push({ id: doc.id, url: doc.data().url, name: doc.data().name, category: doc.data().category });
+  useEffect(() => {
+    const fetchVideos = async () => {
+      const videoCollectionRef = collection(db, 'videos'); // Use the collection function
+      const snapshot = await getDocs(videoCollectionRef); // Use the getDocs function
+
+      const videoList = [];
+      snapshot.forEach((doc) => {
+        const videoData = doc.data();
+        videoList.push({...videoData, id: doc.id });
       });
-    } catch (error) {
-      console.error('Error fetching videos: ', error);
-    }
-    return videoUrls;
- };
 
- useEffect(() => {
-    const fetchVideosAndCategories = async () => {
-      const videoUrls = await fetchVideoUrlsFromFirestore();
-      setVideos(videoUrls);
-
-      // Extract unique categories
-      const uniqueCategories = [...new Set(videoUrls.map(video => video.category))];
-      setCategories(uniqueCategories);
+      console.log('Fetched videos:', videoList); // Debug line
+      setVideos(videoList);
     };
 
-    fetchVideosAndCategories();
- }, []);
+    fetchVideos();
+  }, []);
 
- // Filter videos based on search query and filter option
- const filteredVideos = videos.filter(video => {
-  const matchesSearchQuery = !searchQuery || (video.name && video.name.toLowerCase().includes(searchQuery.toLowerCase()));
-  const matchesFilterOption = !filterOption || video.category === filterOption;
-  return matchesSearchQuery && matchesFilterOption;
-});
+  console.log('Rendering videos:', videos); // Debug line
 
   return (
     <div>
-    <h1>Similar Videos</h1>
+      {videos.map((video, index) => (
+        <div key={video.id} className="videoCard">
+          <Link to={`/player/${video.id}`}>
+            <img src={video.url} alt={`Thumbnail for ${video.name}`} className="videoThumbnail" />
+          </Link>
+          <div className="videoInfo">
+            <h3 className="videoName">{video.name}</h3>
+            <p className="videoCategory">{video.category}</p>
+          </div>
+        </div>
+      ))}
     </div>
   );
 }
