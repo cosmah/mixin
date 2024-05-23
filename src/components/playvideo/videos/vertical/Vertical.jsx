@@ -28,18 +28,18 @@ function Vertical() {
 
   return (
     <div>
-      {videos.map((video, index) => (
-        <div key={video.id} className="videoCard">
-          <Link to={`/player/${video.id}`}>
-            <img src={video.url} alt={`Thumbnail for ${video.name}`} className="videoThumbnail" />
-          </Link>
-          <div className="videoInfo">
-            <h3 className="videoName">{video.name}</h3>
-            <p className="videoCategory">{video.category}</p>
-          </div>
-        </div>
-      ))}
+  {videos.map((video, index) => (
+    <div key={index} className="videoCard">
+    <Link to={`/player/${video.id}`}>
+      <video src={video.url} controls className="videoThumbnail" />
+    </Link>
+    <div className="videoInfo">
+      <h3 className="videoName">{video.name}</h3>
+      <p className="videoCategory">{video.category}</p>
     </div>
+  </div>
+  ))}
+</div>
   );
 }
 
