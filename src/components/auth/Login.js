@@ -15,16 +15,23 @@ const Login = () => {
         e.preventDefault()
         if(!isSigningIn) {
             setIsSigningIn(true)
-            await doSignInWithEmailAndPassword(email, password)
-            // doSendEmailVerification()
+            try {
+                await doSignInWithEmailAndPassword(email, password)
+                // doSendEmailVerification()
+            } catch (error) {
+                setErrorMessage(error.message)
+            } finally {
+                setIsSigningIn(false)
+            }
         }
     }
-
+    
     const onGoogleSignIn = (e) => {
         e.preventDefault()
         if (!isSigningIn) {
             setIsSigningIn(true)
             doSignInWithGoogle().catch(err => {
+                setErrorMessage(err.message)
                 setIsSigningIn(false)
             })
         }

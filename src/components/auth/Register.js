@@ -18,8 +18,19 @@ const Register = () => {
     const onSubmit = async (e) => {
         e.preventDefault()
         if(!isRegistering) {
+            if(password !== confirmPassword) {
+                setErrorMessage("Passwords do not match")
+                return
+            }
             setIsRegistering(true)
-            await doCreateUserWithEmailAndPassword(email, password)
+            try {
+                await doCreateUserWithEmailAndPassword(email, password)
+                navigate('/home') // Navigate to home page after successful registration
+            } catch (error) {
+                setErrorMessage(error.message)
+            } finally {
+                setIsRegistering(false)
+            }
         }
     }
 
