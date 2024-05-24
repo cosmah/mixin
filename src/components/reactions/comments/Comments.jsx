@@ -1,6 +1,6 @@
 // Comments.jsx
 import React, { useState, useEffect, useCallback } from 'react';
-import { collection, addDoc, doc, getDocs, query, orderBy, limit } from "firebase/firestore";
+import { collection, query, orderBy, limit, onSnapshot, addDoc } from "firebase/firestore";
 import { db } from '../../../firebase/firebase';
 import { auth } from '../../../firebase/firebase'; // Make sure to import auth
 
@@ -10,18 +10,22 @@ function Comments({ videoId }) {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   // Memoize fetchComments using useCallback to prevent unnecessary re-renders
-  const fetchComments = useCallback(async () => {
+  const fetchComments = useCallback(() => {
     if (!videoId) return;
-
+  
     const q = query(
       collection(db, "videos", videoId, "comments"),
       orderBy("timestamp", "asc"),
       limit(10)
     );
-
-    const querySnapshot = await getDocs(q);
-    const commentsList = querySnapshot.docs.map(doc => ({...doc.data(), id: doc.id }));
-    setComments(commentsList);
+  
+    const unsubscribe = onSnapshot(q, (querySnapshot) => {
+      const commentsList = querySnapshot.docs.map(doc => ({...doc.data(), id: doc.id }));
+      setComments(commentsList);
+    });
+  
+    // Clean up the subscription when the component unmounts
+    return () => unsubscribe();
   }, [videoId]); // Depend on videoId
 
   useEffect(() => {
@@ -34,16 +38,15 @@ function Comments({ videoId }) {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-
-    if (!newComment.trim() ||isAuthenticated) return;
-
-    const commentRef = doc(collection(db, "videos", videoId, "comments"));
-    await addDoc(commentRef, {
+  
+    if (!newComment.trim() || !isAuthenticated) return;
+  
+    await addDoc(collection(db, "videos", videoId, "comments"), {
       content: newComment,
       timestamp: Date.now(),
       userId: auth.currentUser.uid,
     });
-
+  
     setNewComment('');
     fetchComments(); // Refresh comments list
   };
