@@ -1,14 +1,14 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { collection, addDoc, doc, getDoc, updateDoc } from "firebase/firestore";
+import { collection, addDoc, doc, getDoc, updateDoc, deleteDoc, query, where, getDocs } from "firebase/firestore";
 import "./Likes.css";
 import { db, auth } from '../../../firebase/firebase';
 import { increment } from "firebase/firestore";
 
 function Likes({ videoId }) {
-  const [likes, setLikes] = useState(0); // Initialize likes state to 0
-  const [message, setMessage] = useState(''); // Initialize message state to an empty string
+  const [likes, setLikes] = useState(0);
+  const [message, setMessage] = useState('');
+  const [hasLiked, setHasLiked] = useState(false); // New state variable
 
-  // Memoize fetchLikes using useCallback to prevent unnecessary re-renders
   const fetchLikes = useCallback(async () => {
     if (videoId && typeof videoId === 'string' && videoId.trim()!== '') {
       const docRef = doc(db, "videos", videoId);
@@ -25,25 +25,49 @@ function Likes({ videoId }) {
   }, [videoId]); // Depend on videoId
 
   useEffect(() => {
-    // Call fetchLikes when the component mounts or videoId changes
     fetchLikes();
-  }, [fetchLikes]); // Now fetchLikes is included in the dependency array
+  }, [fetchLikes]);
+
+  useEffect(() => {
+    const fetchUserLike = async () => {
+      if (auth.currentUser) {
+        const q = query(collection(db, "likes"), where("videoId", "==", videoId), where("userId", "==", auth.currentUser.uid));
+        const querySnapshot = await getDocs(q);
+        setHasLiked(!querySnapshot.empty);
+      }
+    };
+
+    fetchUserLike();
+  }, [videoId]);
 
   const handleLike = async () => {
     if (auth.currentUser) {
       if (videoId) {
-        const docRef = await addDoc(collection(db, "likes"), {
-          videoId: videoId,
-          userId: auth.currentUser.uid
-        });
-
         const videoDocRef = doc(db, "videos", videoId);
-        await updateDoc(videoDocRef, {
-          likes: increment(1) // Increment the number of likes by 1
-        });
+        const q = query(collection(db, "likes"), where("videoId", "==", videoId), where("userId", "==", auth.currentUser.uid));
+        const querySnapshot = await getDocs(q);
 
-        console.log("Document written with ID: ", docRef.id);
-        // Re-fetch the likes count after successfully liking a video
+        if (querySnapshot.empty) { // If the user hasn't liked the video yet
+          await addDoc(collection(db, "likes"), {
+            videoId: videoId,
+            userId: auth.currentUser.uid
+          });
+
+          await updateDoc(videoDocRef, {
+            likes: increment(1)
+          });
+
+          setHasLiked(true);
+        } else { // If the user has already liked the video
+          await deleteDoc(doc(db, "likes", querySnapshot.docs[0].id));
+
+          await updateDoc(videoDocRef, {
+            likes: increment(-1) // Decrement the number of likes by 1
+          });
+
+          setHasLiked(false);
+        }
+
         fetchLikes();
       } else {
         setMessage("Invalid videoId. Please check the videoId value.");
@@ -55,9 +79,9 @@ function Likes({ videoId }) {
 
   return (
     <div>
-      <button onClick={handleLike}>Like</button> {/* Like button */}
-      {likes} Likes {/* Display the number of likes */}
-      <p>{message}</p> {/* Display the message */}
+      <button onClick={handleLike}>{hasLiked ? 'Unlike' : 'Like'}</button>
+      {likes} Likes
+      <p>{message}</p>
     </div>
   );
 }
