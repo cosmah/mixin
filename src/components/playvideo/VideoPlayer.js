@@ -37,7 +37,7 @@ const VideoPlayer = () => {
       <div className="video-player-container">
         <div className="scrollable-video-container">
           <div className="video-player">
-            <h1 className="video-player-title">Video Player</h1>
+            
             {videoUrl && (
               <ReactPlayer url={videoUrl} controls className="react-player" />
             )}
