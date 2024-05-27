@@ -5,7 +5,7 @@ import { useParams } from "react-router-dom";
 import { db } from "../../firebase/firebase";
 import { doc, getDoc } from "firebase/firestore";
 import "./VideoPlayer.css";
-import Vertical from './videos/vertical/Vertical';
+import Vertical from "./videos/vertical/Vertical";
 import Comments from "../reactions/comments/Comments";
 import Likes from "../reactions/likes/Likes";
 
@@ -34,13 +34,23 @@ const VideoPlayer = () => {
 
   return (
     <div className="grid-container">
-      <div className="video-player">
-        <h1>Video Player</h1>
-        {videoUrl && <ReactPlayer url={videoUrl} controls />}
-        <Likes videoId={id}/>
-        <Comments videoId={id}/>
+      <div className="video-player-container">
+        <div className="scrollable-video-container">
+          <div className="video-player">
+            <h1 className="video-player-title">Video Player</h1>
+            {videoUrl && (
+              <ReactPlayer url={videoUrl} controls className="react-player" />
+            )}
+            <Likes videoId={id} />
+            <Comments videoId={id} />
+          </div>
+        </div>
       </div>
-      <Vertical />
+      <div className="vertical-container">
+        <div className="scrollable-vertical-container">
+          <Vertical />
+        </div>
+      </div>
     </div>
   );
 };
