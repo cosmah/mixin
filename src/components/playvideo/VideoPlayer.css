@@ -1,7 +1,15 @@
 /* VideoPlayer.css */
 
 
-.scrollable-video-container,
+.scrollable-video-container {
+  overflow-y: auto; /* Enable vertical scrolling */
+  max-height: 360px; /* Set the height to match the video player size */
+  width: 640px; /* Set the width to match the video player size */
+  margin-top: 0; /* Reset margin */
+  padding-top: 0; /* Reset padding */
+}
+
+
 .scrollable-vertical-container {
   overflow-y: auto; /* Enable vertical scrolling */
   max-height: calc(100vh - 200px); /* Example maximum height, adjust as needed */
