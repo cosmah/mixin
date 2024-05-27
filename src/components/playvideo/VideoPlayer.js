@@ -41,10 +41,11 @@ const VideoPlayer = () => {
             {videoUrl && (
               <ReactPlayer url={videoUrl} controls className="react-player" />
             )}
-            <Likes videoId={id} />
-            <Comments videoId={id} />
           </div>
+          
         </div>
+        <Likes videoId={id} />
+          <Comments videoId={id} />
       </div>
       <div className="vertical-container">
         <div className="scrollable-vertical-container">
