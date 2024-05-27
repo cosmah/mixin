@@ -3,6 +3,8 @@ import { collection, addDoc, doc, getDoc, updateDoc, deleteDoc, query, where, ge
 import "./Likes.css";
 import { db, auth } from '../../../firebase/firebase';
 import { increment } from "firebase/firestore";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faThumbsUp, faThumbsDown} from "@fortawesome/free-solid-svg-icons";
 
 function Likes({ videoId }) {
   const [likes, setLikes] = useState(0);
@@ -79,9 +81,12 @@ function Likes({ videoId }) {
 
   return (
     <div>
-      <button onClick={handleLike}>{hasLiked ? 'Unlike' : 'Like'}</button>
-      {likes} Likes
-      <p>{message}</p>
+      <button className="like-button" onClick={handleLike}>
+        <FontAwesomeIcon icon={hasLiked ? faThumbsDown : faThumbsUp} /> 
+        {hasLiked ? 'Unlike' : 'Like'}
+      </button>
+      <p className="likes-count">{likes} Likes</p>
+      <p className="message">{message}</p>
     </div>
   );
 }

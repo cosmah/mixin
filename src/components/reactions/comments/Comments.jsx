@@ -10,6 +10,7 @@ import {
 } from "firebase/firestore";
 import { db } from "../../../firebase/firebase";
 import { auth } from "../../../firebase/firebase"; // Make sure to import auth
+import './Comments.css';
 
 function Comments({ videoId }) {
   const [comments, setComments] = useState([]);
