@@ -2,7 +2,7 @@
 
 
 .scrollable-video-container {
-  overflow-y: auto; /* Enable vertical scrolling */
+  
   max-height: 360px; /* Set the height to match the video player size */
   width: 640px; /* Set the width to match the video player size */
   margin-top: 0; /* Reset margin */

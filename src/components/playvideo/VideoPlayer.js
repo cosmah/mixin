@@ -44,8 +44,12 @@ const VideoPlayer = () => {
           </div>
           
         </div>
-        <Likes videoId={id} />
+        <div className="video-reactions">
+          <Likes videoId={id} />
           <Comments videoId={id} />
+        </div>
+
+        
       </div>
       <div className="vertical-container">
         <div className="scrollable-vertical-container">

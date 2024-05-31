@@ -81,11 +81,13 @@ function Likes({ videoId }) {
 
   return (
     <div>
-      <button className="like-button" onClick={handleLike}>
-        <FontAwesomeIcon icon={hasLiked ? faThumbsDown : faThumbsUp} /> 
-        {hasLiked ? 'Unlike' : 'Like'}
-      </button>
-      <p className="likes-count">{likes} Likes</p>
+      <div style={{display: 'flex', alignItems: 'center'}}>
+        <button className="like-button" onClick={handleLike}>
+          <FontAwesomeIcon icon={hasLiked ? faThumbsDown : faThumbsUp} /> 
+          {hasLiked ? 'Unlike' : 'Like'}
+        </button>
+        <p className="likes-count" style={{marginLeft: '10px'}}>{likes} Likes</p>
+      </div>
       <p className="message">{message}</p>
     </div>
   );
