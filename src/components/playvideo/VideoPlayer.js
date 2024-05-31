@@ -37,19 +37,15 @@ const VideoPlayer = () => {
       <div className="video-player-container">
         <div className="scrollable-video-container">
           <div className="video-player">
-            
             {videoUrl && (
               <ReactPlayer url={videoUrl} controls className="react-player" />
             )}
           </div>
-          
         </div>
         <div className="video-reactions">
           <Likes videoId={id} />
           <Comments videoId={id} />
         </div>
-
-        
       </div>
       <div className="vertical-container">
         <div className="scrollable-vertical-container">
