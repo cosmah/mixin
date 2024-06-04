@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Login from "./components/auth/Login";
 import Register from "./components/auth/Register";
 import Home from "./components/home";
@@ -9,23 +9,15 @@ import VideoPlayer from './components/playvideo/VideoPlayer';
 import Admin from './components/admin/AdminPanel';
 import { AuthProvider } from "./contexts/authContext";
 import LogoutButton from './components/auth/Logout';
+import Topbar from './components/topbar/topbar';
 
 function App() {
  return (
     <AuthProvider>
       <Router>
         <nav className="nav-bar">
-          <ul>
-            <li>
-              <Link to="/">Home</Link>
-            </li>
-            <li>
-              <Link to="/upload">Upload</Link>
-            </li>
-            <li>
-              <Link to="/login">Login</Link>
-            </li>
-          </ul>
+          <Topbar/>
+          
         </nav>
         <div className="w-full h-screen flex flex-col">
           <Routes>
