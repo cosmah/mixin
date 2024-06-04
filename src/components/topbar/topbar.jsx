@@ -1,15 +1,18 @@
-import React, { useState, useEffect } from 'react';
-import './topbar.css'; // Ensure you have this CSS file
-import { Link } from 'react-router-dom';
+import React, { useState, useEffect } from "react";
+import "./topbar.css"; // Ensure you have this CSS file
+import { Link } from "react-router-dom";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faUser } from '@fortawesome/free-solid-svg-icons';
+
 
 function Topbar() {
-  const [searchQuery, setSearchQuery] = useState('');
+  const [searchQuery, setSearchQuery] = useState("");
   const [showSuggestions, setShowSuggestions] = useState(false);
-  const suggestions = ['React', 'JavaScript', 'CSS', 'HTML']; // Example suggestions
+  const suggestions = ["React", "JavaScript", "CSS", "HTML"]; // Example suggestions
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   useEffect(() => {
     // replace `checkUserLoggedIn` with your actual function to check user's login status
-    const userLoggedIn = checkUserLoggedIn(); 
+    const userLoggedIn = checkUserLoggedIn();
     setIsLoggedIn(userLoggedIn);
   }, []);
 
@@ -29,22 +32,25 @@ function Topbar() {
   };
 
   function checkUserLoggedIn() {
-    const user = localStorage.getItem('user');
+    const user = localStorage.getItem("user");
     return user !== null;
   }
 
   useEffect(() => {
-    const userLoggedIn = checkUserLoggedIn(); 
+    const userLoggedIn = checkUserLoggedIn();
     setIsLoggedIn(userLoggedIn);
   }, []);
 
   return (
     <nav className="topbar">
       <ul className="menu">
-  <li><Link to="/">Home</Link></li>
-  <li><Link to="/upload">Upload</Link></li>
-  { !isLoggedIn && <li><Link to="/login">Login</Link></li> }
-</ul>
+        <li>
+          <Link to="/">Home</Link>
+        </li>
+        <li>
+          <Link to="/upload">Upload</Link>
+        </li>
+      </ul>
       <form onSubmit={handleSearchSubmit} className="search-form">
         <input
           type="text"
@@ -60,8 +66,19 @@ function Topbar() {
             ))}
           </ul>
         )}
-        <button type="submit" className="search-button">Search</button>
+        <button type="submit" className="search-button">
+          Search
+        </button>
       </form>
+      <ul>
+        {!isLoggedIn && (
+          <li>
+          <Link to="/login">
+            <FontAwesomeIcon icon={faUser} />
+          </Link>
+        </li>
+        )}
+      </ul>
     </nav>
   );
 }
