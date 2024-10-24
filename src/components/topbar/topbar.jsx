@@ -10,7 +10,7 @@ function Topbar() {
     <div>
       <Top/>
       <Middle/>
-      <Bottom/>
+      {/* <Bottom/> */}
     </div>
   );
 }
