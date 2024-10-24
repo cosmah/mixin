@@ -10,6 +10,7 @@ import Admin from './components/admin/AdminPanel';
 import { AuthProvider } from "./contexts/authContext";
 import LogoutButton from './components/auth/Logout';
 import Topbar from './components/topbar/topbar';
+import Profile from './components/user/Profile';
 
 function App() {
  return (
@@ -30,6 +31,7 @@ function App() {
             <Route path="*" element={<VideoGrid />} />
             <Route path="/admin" element={<Admin />} />
             <Route path="/logout" element={<LogoutButton />} />
+            <Route path="/profile" element={<Profile />} />
           </Routes>
         </div>
       </Router>

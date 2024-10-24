@@ -47,7 +47,6 @@ const VideoGrid = () => {
   return (
     <div className="videoGrid">
       <div className="header">
-        <h1>Video Gallery</h1>
       </div>
       <Middle onCategorySelect={setSelectedCategory} />
       <SearchAndFilter
